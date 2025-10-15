@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { MenuContext } from "../context/menuContext";
+import { CartContext } from "../context/cartContext";
 import Item from "./Item";
 import OrderModal from "./OrderModal";
 
-function Menu({ menu, cart, setCart }) {
+function Menu() {
+  // useContext로 menu 데이터 가져오기 (props 대신)
+  const { menu } = useContext(MenuContext);
+
+  // useContext로 cart, setCart 가져오기 (props 대신)
+  const { cart, setCart } = useContext(CartContext);
+
   const [modalOn, setModalOn] = useState(false);
   const [modalMenu, setModalMenu] = useState(null);
+
   if (!menu)
     return (
       <div style={{ textAlign: "center", margin: "80px" }}>
@@ -13,6 +22,7 @@ function Menu({ menu, cart, setCart }) {
     );
 
   const categorys = Object.keys(menu);
+
   return (
     <>
       {categorys.map((category) => {
